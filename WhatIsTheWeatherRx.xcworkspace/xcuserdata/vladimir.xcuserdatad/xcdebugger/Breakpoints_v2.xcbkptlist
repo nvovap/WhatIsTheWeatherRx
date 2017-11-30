@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "WhatIsTheWeatherRx/ViewModel.swift"
-            timestampString = "533575727.816091"
+            timestampString = "533748058.878291"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "57"
-            endingLineNumber = "57"
+            startingLineNumber = "59"
+            endingLineNumber = "59"
             landmarkName = "init()"
             landmarkType = "7">
          </BreakpointContent>

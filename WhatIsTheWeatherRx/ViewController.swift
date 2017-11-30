@@ -33,19 +33,31 @@ class ViewController: UIViewController {
         viewModel.degrees.bind(to: degreesLabel.rx.text)
             .disposed(by: disposeBag)
         
-        nameTextField.rx.text.orEmpty
-            .bind(to: viewModel.searchText)
-            .disposed(by: disposeBag)
+//        nameTextField.rx.text.orEmpty
+//            .bind(to: viewModel.searchText)
+//            .disposed(by: disposeBag)
         
-        nameTextField.rx.controlEvent(UIControlEvents.editingDidEnd).subscribe(onNext: { (<#()#>) in
-            self.viewModel.searchText
+
+        nameTextField.rx.controlEvent(UIControlEvents.editingDidEndOnExit).asObservable().subscribe(onNext: {print("editing state changed")
+            self.viewModel.searchText.onNext(self.nameTextField.text)
         }, onError: { (error) in
-            
+            print(error.localizedDescription)
         }, onCompleted: {
             
-        }, onDisposed: {
+        }) {
             
-        })
+        }.disposed(by: disposeBag)
+        
+        
+        //subscribe(onNext: {
+//            print("editing state changed")
+//    }, onError: { (error) in   print(error)}, onCompleted: nil, onDisposed: disposeBag)
+//
+        
+        
+//        nameTextField.rx.controlEvent(UIControlEvents.editingDidEndOnExit).asObservable().map {
+//           self.nameTextField.text
+//        }
             
 //
 //            { text in

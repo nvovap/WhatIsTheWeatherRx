@@ -53,14 +53,42 @@ class ViewModel {
     
     init() {
         let jsonRequest = searchText
-            .map { text in
-                return URLSession.shared.rx.json(url: self.getURLForString(text)!)
+            .map { (text) -> Observable<Any> in
+                let url = self.getURLForString(text)
+                
+                print(url)
+                
+                return URLSession.shared.rx.json(url: url!)
             }
             .switchLatest()
         
-        jsonRequest.subscribe({ (json) in
+        jsonRequest.subscribe(onNext: { (json) in
             self.weather = Weather(json: json as AnyObject)
-        }).disposed(by: disposeBag)
+        }, onError: { (error) in
+            print(error.localizedDescription)
+        }, onCompleted: {
+            
+        }) {
+            
+        }.disposed(by: disposeBag)
+        
+        
+        
+        
+        
+        
+//        (onNext: {
+//            self.weather = Weather(json: jsonRequest as AnyObject)
+//        }, onError: { (error) in
+//            print(error)
+//        }, onCompleted: {
+//
+//        }) {
+//
+//        }.disposed(by: disposeBag)
+        
+        
+      
     }
     
     
